@@ -47,6 +47,12 @@ func TestDockerAddParameter(t *testing.T) {
 	assert.Equal(t, 0, len(*docker.Parameters))
 }
 
+func TestContainerTypeUCR(t *testing.T) {
+	container := NewDockerContainer()
+	container.SetContainerTypeUCR()
+	assert.Equal(t, "MESOS", container.Type)
+}
+
 func TestDockerExpose(t *testing.T) {
 	app := NewDockerApplication()
 	app.Container.Docker.Expose(8080).Expose(80, 443)
