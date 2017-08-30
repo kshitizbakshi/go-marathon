@@ -118,6 +118,7 @@ type ExternalVolume struct {
 	Name     string             `json:"name,omitempty"`
 	Provider string             `json:"provider,omitempty"`
 	Options  *map[string]string `json:"options,omitempty"`
+	Size     int                `json:"size,omitempty"`
 }
 
 // Docker is the docker definition from a marathon application
@@ -206,6 +207,13 @@ func (ev *ExternalVolume) AddOption(name, value string) *ExternalVolume {
 func (ev *ExternalVolume) EmptyOptions() *ExternalVolume {
 	ev.Options = &map[string]string{}
 
+	return ev
+}
+
+// SetSize adds a size to an ExternalVolume
+//		size: The size to set in Gigabytes
+func (ev *ExternalVolume) SetSize(size int) *ExternalVolume {
+	ev.Size = size
 	return ev
 }
 

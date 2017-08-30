@@ -112,6 +112,10 @@ func TestExternalVolume(t *testing.T) {
 	ev1 := (*container.Volumes)[0].External
 	assert.Equal(t, ev1.Name, "myVolume")
 	assert.Equal(t, ev1.Provider, "dvdi")
+
+	ev.SetSize(203)
+	assert.Equal(t, ev1.Size, 203)
+
 	if assert.Equal(t, len(*ev1.Options), 2) {
 		assert.Equal(t, (*ev1.Options)["dvdi"], "rexray")
 		assert.Equal(t, (*ev1.Options)["prop"], "pval")
