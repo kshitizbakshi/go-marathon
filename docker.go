@@ -130,6 +130,21 @@ type Docker struct {
 	Privileged     *bool          `json:"privileged,omitempty"`
 }
 
+// SetUCRContainerType sets the container type to "MESOS" which denotes the
+// Universal Container Runtime in DC/OS. This can be used in conjunction with the Docker struct
+// to create a UCR based application, which uses a Docker image. In addition, it also sets
+// the currently unsupported fields for UCR to null/false.
+func (container *Container) SetContainerTypeUCR() *Container {
+	container.Type = "MESOS"
+	container.Docker.EmptyPortMappings()
+	container.Docker.EmptyParameters()
+	container.Docker.Network = ""
+	falseVariable := false
+	container.Docker.ForcePullImage = &falseVariable
+	container.Docker.Privileged = &falseVariable
+	return container
+}
+
 // Volume attachs a volume to the container
 //		host_path:			the path on the docker host to map
 //		container_path:		the path inside the container to map the host volume
